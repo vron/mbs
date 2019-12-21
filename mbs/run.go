@@ -51,7 +51,8 @@ loop:
 	for {
 		select {
 		case <-r.ctx.Done():
-			panic("unimplemented cancelation handling")
+			break loop
+			panic("unimplemented cancelation handling" + r.ctx.Err().Error())
 		case res := <-r.result:
 			if res.err != nil {
 				if firstErr == nil {

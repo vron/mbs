@@ -96,6 +96,10 @@ func createOptions() (o mbs.Options) {
 func getCachePath() string {
 	configDirs := configdir.New("vron", "mbs")
 	cf := configDirs.QueryCacheFolder()
+	err := os.MkdirAll(cf.Path, 0700)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "error opening cache: "+err.Error())
+	}
 	return filepath.Join(cf.Path, "cache.db")
 }
 
